@@ -2,7 +2,7 @@ var postRegex = new RegExp("https:\/\/www.reddit.com\/r\/.*?[\/]comments\/.*");
 
 chrome.tabs.query({'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT},
    function(tabs){
-	  document.getElementById('urldiv').innerHTML = tabs[0].url.toString();
+	  // document.getElementById('urldiv').innerHTML = tabs[0].url.toString();
 	  var taburi = tabs[0].url.toString();
 
 	  setResult(taburi);
