@@ -22,8 +22,8 @@ function httpGet(reqUrl)
 
 function setResult(taburi){
 	if(postRegex.test(taburi) == true){
-		document.getElementById('response').innerHTML = "this is a reddit post address, can be analyzed";
-		// document.getElementById('response').innerHTML = httpGet(taburi);
+		//document.getElementById('response').innerHTML = "this is a reddit post address, can be analyzed";
+		document.getElementById('response').innerHTML = httpGet(taburi);
 	}else{
 		document.getElementById('response').innerHTML = "This is not a reddit post!";
 	}
