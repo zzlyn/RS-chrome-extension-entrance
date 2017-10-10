@@ -5,28 +5,43 @@ chrome.tabs.query({'active': true, 'windowId': chrome.windows.WINDOW_ID_CURRENT}
 	  // document.getElementById('urldiv').innerHTML = tabs[0].url.toString();
 	  var taburi = tabs[0].url.toString();
 
-	  setResult(taburi);
+	  queryRequest(taburi);
    }
 );
 
 function httpGet(reqUrl)
 {
+
 	var localurl = "http://localhost:8000/analyze?postUrl=";
-	theUrl = localurl + encodeURI(reqUrl);
-	console.log(theUrl);
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+	
+  theUrl = localurl + encodeURI(reqUrl);
+  
+  var xmlHttp = new XMLHttpRequest();
+
+  document.getElementById('response').innerHTML = "Analyzing ...";
+
+  xmlHttp.onreadystatechange = function()
+    {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        {
+            document.getElementById('response').innerHTML = xmlHttp.responseText; // Another callback here
+        }
+    }; 
+
+    xmlHttp.open( "GET", theUrl, true ); // true for asynchronous request, 'false' will block response div
     xmlHttp.send( null );
-    return xmlHttp.responseText;
 }
 
-function setResult(taburi){
+function queryRequest(taburi){
 	if(postRegex.test(taburi) == true){
-		//document.getElementById('response').innerHTML = "this is a reddit post address, can be analyzed";
-		document.getElementById('response').innerHTML = httpGet(taburi);
-	}else{
-		document.getElementById('response').innerHTML = "This is not a reddit post!";
-	}
+
+		httpGet(taburi);
 	
-    // document.getElementById('response').innerHTML = httpGet(taburi);
+  }else{
+	
+  	document.getElementById('response').innerHTML = "This is not a reddit post!";
+	
+  }
+
 }
+
