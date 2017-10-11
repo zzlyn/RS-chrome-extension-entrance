@@ -24,7 +24,14 @@ function httpGet(reqUrl)
     {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
         {
-            document.getElementById('response').innerHTML = xmlHttp.responseText; // Another callback here
+
+            (function($) {
+              $("#response").fadeOut(600, function(){
+                $("#response").html(xmlHttp.responseText).fadeIn(800);  
+              });
+
+            })(jQuery);
+
         }
     }; 
 
